@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Advent Calendar</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="calendar">
+                <div class="banner"></div>
+                <div id="1" class="day first"></div>
+                <div id="2" class="day second"></div>
+                <div id="3" class="day third"></div>
+                <div id="4" class="day fourth"></div>
+                <div id="5" class="day fifth"></div>
+                <div id="6" class="day sixth"></div>
+                <div id="7" class="day seventh"></div>
+                <div id="8" class="day eighth"></div>
+                <div id="9" class="day ninth"></div>
+                <div id="10" class="day tenth"></div>
+                <div id="11" class="day eleventh"></div>
+                <div id="12" class="day twelfth"></div>
+            </div>
+            <div class="modal" id="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeBtn">&times;</span>
+                    <p>
+                        Congratulations!
+                        <br />
+                        <br />
+                        Your prize&nbsp;
+                        <br />
+                        <span id="titlePrize"></span>
+                    </p>
+                    <p>Promocode</p>
+                    <div class="flex items-center gap-3 justify-center">
+                        <p id="datePromocode"></p>
+                        <p><span class="icon-copy"></span></p>
+                        <div class="copy-notify" id="copyNotify">
+                            Copied to clipboard
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./script.js" type="module"></script>
+    </body>
+</html>
