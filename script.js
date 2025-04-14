@@ -31,88 +31,107 @@ let dateCampaniss = [
     { id: 12, activationDate: '2025-04-25', expirationDate: '2025-04-25', active: false },
 ];
 
+function getMyanmarTimestamp() {
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Yangon',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    });
+
+    const parts = formatter.formatToParts(new Date());
+    const dateParts = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+
+    const formatted = `${dateParts.year}-${dateParts.month}-${dateParts.day}T${dateParts.hour}:${dateParts.minute}:${dateParts.second}+06:30`;
+    return new Date(formatted).getTime();
+}
+
 async function getPromocodes() {
-  const docRef = doc(db, 'promo', 'yV68ciuqupEdgSuRlgca', '2', 'gAcigkdGZC2QQevT7ofA');
-  const docSnap = await getDoc(docRef);
+    const docRef = doc(db, 'promo', 'yV68ciuqupEdgSuRlgca', '2', 'gAcigkdGZC2QQevT7ofA');
+    const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()) {
-      const data = docSnap.data();
+    if (docSnap.exists()) {
+        const data = docSnap.data();
 
-      dateCampaniss.forEach((dayObj) => {
-          const promosForDate = data[dayObj.activationDate];
+        dateCampaniss.forEach((dayObj) => {
+            const promosForDate = data[dayObj.activationDate];
 
-          if (Array.isArray(promosForDate) && promosForDate.length > 0) {
-              const randomPromo = promosForDate[Math.floor(Math.random() * promosForDate.length)];
+            if (Array.isArray(promosForDate) && promosForDate.length > 0) {
+                const randomPromo = promosForDate[Math.floor(Math.random() * promosForDate.length)];
 
-              promocodes.push({
-                  id: dayObj.id,
-                  date: dayObj.activationDate,
-                  promocode: randomPromo.promocode,
-                  title: randomPromo.title,
-                  active: true,
-              });
-          } else {
-              promocodes.push({
-                  id: dayObj.id,
-                  date: dayObj.activationDate,
-                  promocode: '',
-                  title: 'No promo',
-                  active: false,
-              });
-          }
-      });
-  } else {
-      console.log('Нет такого документа!');
-  }
+                promocodes.push({
+                    id: dayObj.id,
+                    date: dayObj.activationDate,
+                    promocode: randomPromo.promocode,
+                    title: randomPromo.title,
+                    active: true,
+                });
+            } else {
+                promocodes.push({
+                    id: dayObj.id,
+                    date: dayObj.activationDate,
+                    promocode: '',
+                    title: 'No promo',
+                    active: false,
+                });
+            }
+        });
+    } else {
+        console.log('Нет такого документа!');
+    }
 }
 
 async function init() {
-  const date = new Date();
-  const myanmarDate = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Yangon' }));
-  const year = myanmarDate.getFullYear();
-  const month = (myanmarDate.getMonth() + 1).toString().padStart(2, '0');
-  const day = myanmarDate.getDate().toString().padStart(2, '0');
-  const dateMyanma = `${year}-${month}-${day}`;
-  console.log(`Дата в Мьянме: ${dateMyanma}`);
+    const nowTimestamp = getMyanmarTimestamp();
 
-  await getPromocodes();
+    await getPromocodes();
 
+    dateCampaniss.forEach((dateObj) => {
+        const dayElement = document.querySelector(`#${CSS.escape(dateObj.id)}`);
+        const startTime = new Date(`${dateObj.activationDate}T00:00:00+06:30`).getTime();
+        const endTime = startTime + 86400000;
 
-  dateCampaniss.forEach((dateObj) => {
-      const dayElement = document.querySelector(`#${CSS.escape(dateObj.id)}`);
-      if (dateObj.active) {
-          dayElement.classList.add('active');
-      } else {
-      }
-  });
+        if (nowTimestamp >= startTime && nowTimestamp < endTime) {
+            dayElement.classList.add('active');
+            dayElement.style.cursor = 'pointer';
+            dayElement.style.opacity = '1';
+        } else {
+            dayElement.classList.add('disabled');
+            dayElement.style.cursor = 'not-allowed';
+            dayElement.style.opacity = '0.4';
+        }
+    });
 
-  let clickedCard = null;
+    const modal = document.getElementById('modal');
+    const dayCards = document.querySelectorAll('.day');
+    dayCards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+            if (!card.classList.contains('active')) return;
 
-  const dayCards = document.querySelectorAll('.day');
-  dayCards.forEach((card, index) => {
-      card.addEventListener('click', () => {
-          modal.style.display = 'flex';
+            modal.style.display = 'flex';
 
-          const promo = promocodes[index];
-          if (promo) {
-              document.querySelector('#datePromocode').textContent = promo.promocode || '-';
-              document.querySelector('#titlePrize').textContent = promo.title || 'No promo';
-          } else {
-              console.log(`Нет данных для карточки с индексом ${index}`);
-          }
-      });
-  });
+            const promo = promocodes[index];
+            if (promo) {
+                document.querySelector('#datePromocode').textContent = promo.promocode || '-';
+                document.querySelector('#titlePrize').textContent = promo.title || 'No promo';
+            }
+        });
+    });
 
-  const closeBtn = document.getElementById('closeBtn');
-  closeBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-  });
+    const closeBtn = document.getElementById('closeBtn');
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
 
-  window.addEventListener('click', (e) => {
-      if (e.target === modal) {
-          modal.style.display = 'none';
-      }
-  });
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 }
 
 const copyIcon = document.querySelector('.icon-copy');
@@ -125,7 +144,6 @@ copyIcon.addEventListener('click', () => {
     if (promoText && promoText !== '-') {
         navigator.clipboard.writeText(promoText).then(() => {
             notify.style.display = 'block';
-
             setTimeout(() => {
                 notify.style.display = 'none';
             }, 2000);
@@ -136,3 +154,10 @@ copyIcon.addEventListener('click', () => {
 });
 
 init();
+
+document.querySelectorAll('.faq-header').forEach(header => {
+    header.addEventListener('click', () => {
+        const faqItem = header.parentElement;
+        faqItem.classList.toggle('active');
+    });
+});
