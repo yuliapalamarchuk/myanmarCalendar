@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Advent Calendar</title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body>
-        <div class="container">
-            <div class="calendar">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advent Calendar</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <img src="./img/1x.svg" alt="logo" class="logo">
+        </div>
+        <div class="title"><span style="color: #FFD43C">Happy</span> <br> Thadingyut festival</div>
+        <div class="calendar">
+            <div class="row first-row">
                 <div class="banner"></div>
                 <div id="1" class="day first"></div>
+            </div>
+            <div class="row second-row">
                 <div id="2" class="day second"></div>
                 <div id="3" class="day third"></div>
                 <div id="4" class="day fourth"></div>
+            </div>
+            <div class="row third-row">
                 <div id="5" class="day fifth"></div>
                 <div id="6" class="day sixth"></div>
                 <div id="7" class="day seventh"></div>
+            </div>
+            <div class="row fourth-row">
                 <div id="8" class="day eighth"></div>
                 <div id="9" class="day ninth"></div>
                 <div id="10" class="day tenth"></div>
+            </div>
+            <div class="row fifth-row">
                 <div id="11" class="day eleventh"></div>
                 <div id="12" class="day twelfth"></div>
                 <div class="blue">
-                    Online <br />
-                    Raffle <br />
-                    Day
                 </div>
             </div>
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <span class="close" id="closeBtn">&times;</span>
-                    <p style="font-size: 18px">
-                        Congratulations!
-                        <br />
+        </div>
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <span class="close" id="closeBtn">&times;</span>
+                <p style="font-size: 18px">
+                    Congratulations!
+                    <br />
 
-                        Your gift&nbsp;
-                        <br />
-                        <span id="titlePrize"></span>
-                    </p>
-                    <div class="flex items-center gap-3 justify-center">
-                        <p id="datePromocode" style="font-size: 18px"></p>
-                        <p><span class="icon-copy"></span></p>
-                        <div class="copy-notify" id="copyNotify">
-                            Copied to clipboard
-                        </div>
+                    Your gift&nbsp;
+                    <br />
+                    <span id="titlePrize"></span>
+                </p>
+                <div class="flex items-center gap-3 justify-center">
+                    <p id="datePromocode" style="font-size: 18px"></p>
+                    <p><span class="icon-copy"></span></p>
+                    <div class="copy-notify" id="copyNotify">
+                        Copied to clipboard
                     </div>
                 </div>
             </div>
-            <div class="faq-container">
+        </div>
+        <!-- <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-header">
                         <span class="faq-question"
@@ -151,8 +164,9 @@
                         </p>
                     </div>
                 </div>
-            </div>
-        </div>
-        <script src="./script.js" type="module"></script>
-    </body>
+            </div> -->
+    </div>
+    <script src="./script.js" type="module"></script>
+</body>
+
 </html>

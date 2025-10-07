@@ -17,18 +17,18 @@ const db = getFirestore(app);
 let promocodes = [];
 
 let dateCampaniss = [
-    { id: 1, activationDate: '2025-04-14', expirationDate: '2025-04-14', active: false },
-    { id: 2, activationDate: '2025-04-15', expirationDate: '2025-04-15', active: false },
-    { id: 3, activationDate: '2025-04-16', expirationDate: '2025-04-16', active: false },
-    { id: 4, activationDate: '2025-04-17', expirationDate: '2025-04-17', active: false },
-    { id: 5, activationDate: '2025-04-18', expirationDate: '2025-04-18', active: false },
-    { id: 6, activationDate: '2025-04-19', expirationDate: '2025-04-19', active: false },
-    { id: 7, activationDate: '2025-04-20', expirationDate: '2025-04-20', active: false },
-    { id: 8, activationDate: '2025-04-21', expirationDate: '2025-04-21', active: false },
-    { id: 9, activationDate: '2025-04-22', expirationDate: '2025-04-22', active: false },
-    { id: 10, activationDate: '2025-04-23', expirationDate: '2025-04-23', active: false },
-    { id: 11, activationDate: '2025-04-24', expirationDate: '2025-04-24', active: false },
-    { id: 12, activationDate: '2025-04-25', expirationDate: '2025-04-25', active: false },
+    { id: 1, activationDate: '2025-10-07', expirationDate: '2025-10-07', active: false },
+    { id: 2, activationDate: '2025-10-08', expirationDate: '2025-10-08', active: false },
+    { id: 3, activationDate: '2025-10-09', expirationDate: '2025-10-09', active: false },
+    { id: 4, activationDate: '2025-10-10', expirationDate: '2025-10-10', active: false },
+    { id: 5, activationDate: '2025-10-11', expirationDate: '2025-10-11', active: false },
+    { id: 6, activationDate: '2025-10-12', expirationDate: '2025-10-12', active: false },
+    { id: 7, activationDate: '2025-10-13', expirationDate: '2025-10-13', active: false },
+    { id: 8, activationDate: '2025-10-14', expirationDate: '2025-10-14', active: false },
+    { id: 9, activationDate: '2025-10-15', expirationDate: '2025-10-15', active: false },
+    { id: 10, activationDate: '2025-10-16', expirationDate: '2025-10-16', active: false },
+    { id: 11, activationDate: '2025-10-17', expirationDate: '2025-10-17', active: false },
+    { id: 12, activationDate: '2025-10-18', expirationDate: '2025-10-18', active: false },
 ];
 
 function getMyanmarTimestamp() {
